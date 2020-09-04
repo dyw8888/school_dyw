@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据可视化demo</title>
+    <link href="/static/css/common.css" rel="stylesheet">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/bootstrap-table.css" rel="stylesheet">
+    <link href="/static/css/pagination.css" rel="stylesheet">
+    <script src="/static/js/Plugin/jquery-3.3.1.min.js"></script>
+    <script src="/static/js/Plugin/echarts.min.js"></script>
+    <script src="/static/js/Plugin/jquery.pagination.min.js"></script>
+    <script src="/static/js/common.js"></script>
+    <script src="/static/js/chronic.js"></script>
+</head>
+<body>
+<!--顶部-->
+<header class="header left">
+    <div class="left nav">
+        <ul>
+      
+          </ul>
+    </div>
+    <div class="header_center left" style="position:relative">
+        <h2><strong>大数据展示</strong></h2>
+
+    </div>
+    <div class="right nav text_right">
+        <ul>
+
+        </ul>
+    </div>
+
+</header>
+<!--内容部分-->
+<div class="con left" style="width: 98%;margin-left: 1%;margin-bottom: 25px;">
+    <form method="POST" action="{% url 'school_1:search_patient' %}" style="display: inline-block;">
+        {% csrf_token %} 
+        <input type="text" placeholder="请输入身份证" name="name_id" style="width: 180px;height: 28px;border-radius: 3px;text-indent: 1em;border: 1px solid#4b8df8;" /><button class="btn btn-primary btn-sm" style="margin-left:20px">
+        <span class="glyphicon glyphicon-search"></span>&nbsp;
+            <input type="submit"  value="查找" style="background:none;  
+            outline:none;  border:none;">
+           </button>
+
+            
+</form>
+<button class="btn btn-primary btn-sm" style="margin-left:20px"><span class="glyphicon glyphicon-plus"></span>&nbsp;<a href="{% url 'school_1:edit_patient' 0 %}" style="background:none;  
+    outline:none;  border:none;color:#fff;">增添</a></button>
+    
+    <div class="div_any_child">
+          <div class="table_p" style="height: 96%;margin-top: 20px;">
+              <table>
+                  <thead><tr>
+                      <th>序列号</th>
+                      <th>姓名</th>
+                      <th>性别</th>
+                      <th>身份证号</th>
+                      <th>体温</th>
+                      <th>操作</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                      {% for patient in patients%}
+                  <tr><td>{{patient.id}}</td><td>{{patient.pname}}</td><td>{{patient.pgender}}</td><td>{{patient.pid}}</td><td>{{patient.pheat}}</td><td><button class="btn btn-primary btn-sm">
+                      <a href="{% url 'school_1:show_patient' patient.id %}" style="text-decoration: none;color:#fff;">查看</a></button></td></tr>
+                  
+                    {% endfor %}  
+                </tbody>
+
+              </table>
+          </div>
+          <div class="box">
+              <div id="pagination" class="page fl"></div>
+          </div>
+        </div>
+
+
+    </div>
+</div>
+</body>
+</html>
